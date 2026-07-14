@@ -1,0 +1,65 @@
+{%- liquid
+  assign title = section.settings.title
+  assign featured = section.settings.collection
+  assign limit = section.settings.products_to_show
+-%}
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      {%- if title != blank -%}
+        <h2 class="section-head__title">{{ title }}</h2>
+      {%- endif -%}
+      {%- if featured != blank -%}
+        <a class="section-head__link" href="{{ featured.url }}">View all</a>
+      {%- endif -%}
+    </div>
+
+    {%- if featured != blank and featured.products.size > 0 -%}
+      <div class="product-grid">
+        {%- for product in featured.products limit: limit -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="empty-state">
+        <h3 class="empty-state__heading">No collection yet</h3>
+        <p>Pick a collection for this section in the theme editor to feature products on the home page.</p>
+        <a class="btn btn-ghost" href="{{ routes.all_products_collection_url }}">Browse all products</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Featured drop"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collection"
+    }
+  ]
+}
+{% endschema %}

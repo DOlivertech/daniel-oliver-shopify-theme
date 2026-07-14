@@ -1,0 +1,14 @@
+<section class="wrap notfound">
+  <img class="chibi" src="{{ 'chibi-daniel.webp' | asset_url }}" alt="" width="170" height="170">
+  <p class="eyebrow">Error 404</p>
+  <h1 class="notfound__heading">Off track</h1>
+  <p class="rte">This page took a wrong turn. Let's get back on the racing line.</p>
+  <a class="btn btn-primary" href="{{ routes.root_url }}">Back to the store</a>
+</section>
+
+{% schema %}
+{
+  "name": "404",
+  "settings": []
+}
+{% endschema %}

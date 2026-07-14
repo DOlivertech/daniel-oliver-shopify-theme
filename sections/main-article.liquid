@@ -1,0 +1,27 @@
+<article class="wrap article">
+  <span class="article__date">{{ article.published_at | date: '%b %d, %Y' }}</span>
+  <h1 class="article__title">{{ article.title }}</h1>
+
+  {%- if article.image -%}
+    <div class="article__hero">
+      <img
+        src="{{ article.image | image_url: width: 1200 }}"
+        srcset="{{ article.image | image_url: width: 600 }} 600w, {{ article.image | image_url: width: 1200 }} 1200w"
+        sizes="(min-width: 760px) 760px, 100vw"
+        width="{{ article.image.width }}"
+        height="{{ article.image.height }}"
+        alt="{{ article.image.alt | default: article.title | escape }}">
+    </div>
+  {%- endif -%}
+
+  <div class="rte">
+    {{ article.content }}
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,66 @@
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h1 class="section-head__title">Search</h1>
+    </div>
+
+    <form class="search-form" action="{{ routes.search_url }}" method="get" role="search">
+      <input
+        class="control"
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ 'general.search.placeholder' | t }}"
+        aria-label="{{ 'general.search.search' | t }}">
+      <button type="submit" class="btn btn-primary">{{ 'general.search.search' | t }}</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- if search.results.size > 0 -%}
+        {%- paginate search.results by 24 -%}
+          <div class="product-grid">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {% render 'product-card', product: item %}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          <div>
+            {%- for item in search.results -%}
+              {%- unless item.object_type == 'product' -%}
+                <a class="result-row" href="{{ item.url }}">
+                  <span class="result-row__kind">{{ item.object_type }}</span>
+                  <span class="result-row__title">{{ item.title }}</span>
+                </a>
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.pages > 1 -%}
+            <nav class="pagination" aria-label="Pagination">
+              {{ paginate | default_pagination }}
+            </nav>
+          {%- endif -%}
+        {%- endpaginate -%}
+      {%- else -%}
+        <div class="empty-state">
+          <h2 class="empty-state__heading">No results</h2>
+          <p>Nothing matched "{{ search.terms | escape }}". Try a different search.</p>
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div class="empty-state">
+        <h2 class="empty-state__heading">Search the store</h2>
+        <p>Enter a term above to find products, pages and posts.</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

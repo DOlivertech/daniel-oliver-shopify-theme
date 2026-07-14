@@ -1,0 +1,40 @@
+{%- comment -%}
+  price.liquid
+  Renders a price block in the mono font.
+  Accepts:
+    - product: a product object (uses its price range + selected variant)
+    - variant: a specific variant object (takes precedence for the base price)
+  Shows a struck-through compare-at price + sale accent when on sale, and
+  "From <min>" when the product's price varies.
+{%- endcomment -%}
+
+{%- liquid
+  assign target = variant | default: product
+  assign price = target.price
+  assign compare = target.compare_at_price
+
+  assign varies = false
+  if product and product.price_varies and variant == blank
+    assign varies = true
+    assign price = product.price_min
+  endif
+
+  assign on_sale = false
+  if compare and compare > price
+    assign on_sale = true
+  endif
+-%}
+
+<span class="price">
+  {%- if varies -%}
+    <span class="price__from">From</span>
+    <span class="price__current">{{ price | money }}</span>
+  {%- else -%}
+    {%- if on_sale -%}
+      <span class="price__compare">{{ compare | money }}</span>
+      <span class="price__current price__sale">{{ price | money }}</span>
+    {%- else -%}
+      <span class="price__current">{{ price | money }}</span>
+    {%- endif -%}
+  {%- endif -%}
+</span>

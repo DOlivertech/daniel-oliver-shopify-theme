@@ -1,0 +1,85 @@
+{%- liquid
+  assign logo = section.settings.logo | default: settings.logo
+  assign menu = linklists['main-menu']
+-%}
+
+<header class="site-header">
+  <div class="wrap site-header__bar">
+    <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }} home">
+      {%- if logo -%}
+        <img
+          src="{{ logo | image_url: width: 240 }}"
+          srcset="{{ logo | image_url: width: 240 }} 1x, {{ logo | image_url: width: 480 }} 2x"
+          alt="{{ shop.name | escape }}"
+          width="{{ logo.width }}"
+          height="{{ logo.height }}">
+      {%- else -%}
+        {{ shop.name }}
+      {%- endif -%}
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      {%- if menu.links.size > 0 -%}
+        {%- for link in menu.links -%}
+          <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="{{ routes.all_products_collection_url }}">Shop</a>
+      {%- endif -%}
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="icon-link" href="{{ routes.search_url }}" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.5" y2="16.5"></line>
+        </svg>
+      </a>
+
+      <a class="icon-link" href="{{ routes.cart_url }}" aria-label="Cart, {{ cart.item_count }} items">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M6 6h15l-1.5 9h-12z"></path>
+          <path d="M6 6L5 3H2"></path>
+          <circle cx="9" cy="20" r="1.4" fill="currentColor" stroke="none"></circle>
+          <circle cx="18" cy="20" r="1.4" fill="currentColor" stroke="none"></circle>
+        </svg>
+        <span class="cart-badge" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+
+      <details class="nav-drawer">
+        <summary aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <line x1="3" y1="7" x2="21" y2="7"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="17" x2="21" y2="17"></line>
+          </svg>
+        </summary>
+        <div class="nav-drawer__panel">
+          {%- if menu.links.size > 0 -%}
+            {%- for link in menu.links -%}
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            {%- endfor -%}
+          {%- else -%}
+            <a href="{{ routes.all_products_collection_url }}">Shop</a>
+          {%- endif -%}
+          <a href="{{ routes.search_url }}">Search</a>
+          <a href="{{ routes.cart_url }}">Cart ({{ cart.item_count }})</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image",
+      "info": "Overrides the theme-level logo for this header. Falls back to the shop name."
+    }
+  ]
+}
+{% endschema %}

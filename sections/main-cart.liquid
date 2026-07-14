@@ -1,0 +1,73 @@
+<section class="wrap cart">
+  <h1 class="cart__title">{{ 'cart.general.title' | t }}</h1>
+
+  {%- if cart.item_count > 0 -%}
+    {%- form 'cart', cart, data-cart-form: '' -%}
+      <div class="cart__lines">
+        {%- for item in cart.items -%}
+          <div class="cart-line">
+            <a class="cart-line__media" href="{{ item.url }}" aria-label="{{ item.product.title | escape }}">
+              {%- if item.image -%}
+                <img
+                  src="{{ item.image | image_url: width: 200 }}"
+                  width="{{ item.image.width }}"
+                  height="{{ item.image.height }}"
+                  alt="{{ item.image.alt | default: item.product.title | escape }}"
+                  loading="lazy">
+              {%- endif -%}
+            </a>
+
+            <div class="cart-line__info">
+              <a class="cart-line__title" href="{{ item.url }}">{{ item.product.title }}</a>
+              {%- unless item.variant.title == 'Default Title' -%}
+                <p class="cart-line__variant">{{ item.variant.title }}</p>
+              {%- endunless -%}
+
+              <div class="cart-line__meta">
+                <label class="field-label" for="Quantity-{{ item.index | plus: 1 }}">Qty</label>
+                <input
+                  id="Quantity-{{ item.index | plus: 1 }}"
+                  class="control qty"
+                  type="number"
+                  name="updates[]"
+                  value="{{ item.quantity }}"
+                  min="0"
+                  inputmode="numeric"
+                  data-qty-input
+                  aria-label="Quantity for {{ item.product.title | escape }}">
+                <a class="cart-line__remove" href="{{ item.url_to_remove }}">Remove</a>
+              </div>
+            </div>
+
+            <div class="cart-line__price">{{ item.final_line_price | money }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="cart__foot">
+        <div class="cart__subtotal">
+          <span class="label">Subtotal</span>
+          <span class="amount">{{ cart.total_price | money }}</span>
+        </div>
+        <p class="cart__note">Taxes and shipping are calculated at checkout.</p>
+        <div class="cart__actions">
+          <button type="submit" name="update" class="btn btn-ghost">{{ 'cart.general.update' | t }}</button>
+          <button type="submit" name="checkout" class="btn btn-primary">{{ 'cart.general.checkout' | t }}</button>
+        </div>
+      </div>
+    {%- endform -%}
+  {%- else -%}
+    <div class="empty-state">
+      <img class="chibi" src="{{ 'chibi-daniel.webp' | asset_url }}" alt="" width="140" height="140">
+      <h2 class="empty-state__heading">Nothing in the garage yet.</h2>
+      <a class="btn btn-primary" href="{{ routes.all_products_collection_url }}">Start shopping</a>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": []
+}
+{% endschema %}

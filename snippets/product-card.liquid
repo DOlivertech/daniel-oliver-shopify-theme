@@ -1,0 +1,32 @@
+{%- comment -%}
+  product-card.liquid
+  Accepts:  product  (a product object)
+  Renders a 4:5 image card with title + price, whole card is a link.
+{%- endcomment -%}
+
+<a class="product-card" href="{{ product.url }}">
+  <div class="product-card__media">
+    {%- if product.compare_at_price > product.price -%}
+      <span class="product-card__badge">Sale</span>
+    {%- endif -%}
+    {%- if product.featured_image -%}
+      <img
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        srcset="
+          {{ product.featured_image | image_url: width: 300 }} 300w,
+          {{ product.featured_image | image_url: width: 600 }} 600w,
+          {{ product.featured_image | image_url: width: 900 }} 900w"
+        sizes="(min-width: 1200px) 25vw, (min-width: 640px) 33vw, 50vw"
+        width="{{ product.featured_image.width }}"
+        height="{{ product.featured_image.height }}"
+        alt="{{ product.featured_image.alt | default: product.title | escape }}"
+        loading="lazy">
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+  <div class="product-card__body">
+    <span class="product-card__title">{{ product.title }}</span>
+    {% render 'price', product: product %}
+  </div>
+</a>

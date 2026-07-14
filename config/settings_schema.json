@@ -1,0 +1,56 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "DO Racing",
+    "theme_version": "1.0.0",
+    "theme_author": "Daniel Oliver Racing",
+    "theme_documentation_url": "https://danieloliverracing.com",
+    "theme_support_url": "https://danieloliverracing.com/contact"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image",
+        "info": "Optional. Falls back to the shop name in the display font."
+      },
+      {
+        "type": "text",
+        "id": "main_site_url",
+        "label": "Main site URL",
+        "default": "https://danieloliverracing.com"
+      },
+      {
+        "type": "header",
+        "content": "Social links"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "YouTube URL"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok URL"
+      },
+      {
+        "type": "header",
+        "content": "Footer"
+      },
+      {
+        "type": "text",
+        "id": "footer_motto",
+        "label": "Footer motto",
+        "default": "DO · SIM → REAL"
+      }
+    ]
+  }
+]

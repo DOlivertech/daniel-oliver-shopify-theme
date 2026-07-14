@@ -1,0 +1,46 @@
+{%- liquid
+  assign collection = collection
+-%}
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h1 class="section-head__title">{{ collection.title }}</h1>
+      </div>
+    </div>
+
+    {%- if collection.description != blank -%}
+      <div class="rte" style="margin-bottom:2rem;max-width:60ch">{{ collection.description }}</div>
+    {%- endif -%}
+
+    {%- if collection.products.size > 0 -%}
+      {%- paginate collection.products by 24 -%}
+        <div class="product-grid">
+          {%- for product in collection.products -%}
+            {% render 'product-card', product: product %}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination" aria-label="Pagination">
+            {{ paginate | default_pagination }}
+          </nav>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- else -%}
+      <div class="empty-state">
+        <h2 class="empty-state__heading">Nothing here yet</h2>
+        <p>This collection has no products right now. Check back soon.</p>
+        <a class="btn btn-ghost" href="{{ routes.all_products_collection_url }}">Browse all products</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": []
+}
+{% endschema %}

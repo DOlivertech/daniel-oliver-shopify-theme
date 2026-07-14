@@ -1,0 +1,41 @@
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h1 class="section-head__title">Collections</h1>
+    </div>
+
+    {%- if collections.size > 0 -%}
+      <div class="collection-grid">
+        {%- for collection in collections -%}
+          <a class="collection-card" href="{{ collection.url }}" aria-label="{{ collection.title | escape }}">
+            {%- if collection.featured_image -%}
+              <img
+                src="{{ collection.featured_image | image_url: width: 700 }}"
+                srcset="{{ collection.featured_image | image_url: width: 400 }} 400w, {{ collection.featured_image | image_url: width: 700 }} 700w"
+                sizes="(min-width: 900px) 33vw, 50vw"
+                width="{{ collection.featured_image.width }}"
+                height="{{ collection.featured_image.height }}"
+                alt="{{ collection.featured_image.alt | default: collection.title | escape }}"
+                loading="lazy">
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag }}
+            {%- endif -%}
+            <span class="collection-card__label">{{ collection.title }}</span>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="empty-state">
+        <h2 class="empty-state__heading">No collections yet</h2>
+        <p>Collections will appear here once they are created in the admin.</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "List collections",
+  "settings": []
+}
+{% endschema %}
