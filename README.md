@@ -2,6 +2,10 @@
 
 A custom Online Store 2.0 theme for the Daniel Oliver Racing store. Dark ink base with pink, violet and cyan gradient accents, an animated starfield background, Unbounded display type, Space Grotesk body and Space Mono for eyebrows and prices. The design language is ported from danieloliverracing.com.
 
+> **Part of the [Daniel Oliver Racing](https://github.com/DOlivertech/daniel-oliver-site) project.**
+> The main site (Astro 5 + Decap CMS) lives in [DOlivertech/daniel-oliver-site](https://github.com/DOlivertech/daniel-oliver-site);
+> this repo is the Shopify storefront theme that mirrors its look. Live site: <https://danieloliverracing.com>.
+
 ## File structure
 
 ```
