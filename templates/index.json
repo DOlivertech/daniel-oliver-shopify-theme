@@ -17,7 +17,14 @@
         "collection": "stickers",
         "title": "Stickers"
       }
+    },
+    "featured-collection-coaching": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "coaching",
+        "title": "Sim Racing Coaching"
+      }
     }
   },
-  "order": ["hero", "featured-collection", "featured-collection-stickers"]
+  "order": ["hero", "featured-collection", "featured-collection-stickers", "featured-collection-coaching"]
 }
