@@ -6,8 +6,18 @@
     },
     "featured-collection": {
       "type": "featured-collection",
-      "settings": {}
+      "settings": {
+        "collection": "apparel",
+        "title": "Apparel"
+      }
+    },
+    "featured-collection-stickers": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "stickers",
+        "title": "Stickers"
+      }
     }
   },
-  "order": ["hero", "featured-collection"]
+  "order": ["hero", "featured-collection", "featured-collection-stickers"]
 }
