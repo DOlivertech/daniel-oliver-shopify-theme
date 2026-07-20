@@ -27,13 +27,21 @@
     {%- if product.media.size > 1 -%}
       <div class="product__thumbs">
         {%- for media in product.media -%}
-          <button class="product__thumb" type="button" aria-label="View image {{ forloop.index }} of {{ product.title | escape }}">
+          <button
+            class="product__thumb"
+            type="button"
+            data-thumb
+            data-feature-src="{{ media.preview_image | image_url: width: 1000 }}"
+            data-feature-srcset="{{ media.preview_image | image_url: width: 500 }} 500w, {{ media.preview_image | image_url: width: 1000 }} 1000w, {{ media.preview_image | image_url: width: 1500 }} 1500w"
+            data-feature-alt="{{ media.preview_image.alt | default: product.title | escape }}"
+            {% if media.id == featured.id %}aria-current="true"{% endif %}
+            aria-label="View image {{ forloop.index }} of {{ product.title | escape }}">
             <img
               src="{{ media.preview_image | image_url: width: 160 }}"
               srcset="{{ media.preview_image | image_url: width: 160 }} 1x, {{ media.preview_image | image_url: width: 320 }} 2x"
               width="{{ media.preview_image.width }}"
               height="{{ media.preview_image.height }}"
-              alt="{{ media.preview_image.alt | default: product.title | escape }}"
+              alt=""
               loading="lazy">
           </button>
         {%- endfor -%}

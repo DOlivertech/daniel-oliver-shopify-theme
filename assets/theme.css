@@ -614,6 +614,14 @@ main {
   border: 1px solid var(--line);
   background: var(--ink-3);
   padding: 0;
+  cursor: pointer;
+  transition: border-color var(--dur-1) var(--ease-out-expo);
+}
+.product__thumb:hover {
+  border-color: var(--mist);
+}
+.product__thumb[aria-current="true"] {
+  border-color: var(--text);
 }
 .product__thumb img {
   width: 100%;

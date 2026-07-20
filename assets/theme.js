@@ -57,6 +57,29 @@
     });
   }
 
+  /* ---- Product: thumbnail gallery → swap the main image ---- */
+  function initProductGallery() {
+    var feature = document.querySelector("[data-product-feature]");
+    var thumbs = document.querySelectorAll("[data-thumb]");
+    if (!feature || !thumbs.length) return;
+
+    Array.prototype.forEach.call(thumbs, function (thumb) {
+      thumb.addEventListener("click", function () {
+        var src = thumb.getAttribute("data-feature-src");
+        if (!src) return;
+        feature.src = src;
+        var srcset = thumb.getAttribute("data-feature-srcset");
+        if (srcset) feature.srcset = srcset;
+        var alt = thumb.getAttribute("data-feature-alt");
+        if (alt) feature.alt = alt;
+        Array.prototype.forEach.call(thumbs, function (t) {
+          t.removeAttribute("aria-current");
+        });
+        thumb.setAttribute("aria-current", "true");
+      });
+    });
+  }
+
   function ready(fn) {
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", fn);
@@ -67,6 +90,7 @@
 
   ready(function () {
     initProductForm();
+    initProductGallery();
     initCartForm();
   });
 })();
