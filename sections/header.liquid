@@ -14,7 +14,11 @@
           width="{{ logo.width }}"
           height="{{ logo.height }}">
       {%- else -%}
-        {{ shop.name }}
+        <img
+          src="{{ 'logo-do.png' | asset_url }}"
+          alt="{{ shop.name | escape }}"
+          width="400"
+          height="225">
       {%- endif -%}
     </a>
 
