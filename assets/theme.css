@@ -1170,6 +1170,27 @@ select.control {
 .site-footer__meta a {
   color: var(--cyan);
 }
+.site-footer__meta-end {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+}
+.site-footer__meta a.powered-by-shopify {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--mist);
+  transition: color var(--dur-1) var(--ease-out-expo);
+}
+.site-footer__meta a.powered-by-shopify:hover {
+  color: var(--text);
+}
+.powered-by-shopify__logo {
+  width: 0.8rem;
+  height: auto;
+  flex-shrink: 0;
+}
 
 /* ---- Password page ---- */
 .password-page {
